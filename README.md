@@ -80,14 +80,6 @@ npm run dev
 
 ### テスト手順
 
-#### 方法1: 自動スクリプト（推奨）
-
-```bash
-npm run test:local
-```
-
-#### 方法2: 手動実行
-
 1. **ターミナル1**: ngrokを起動
    ```bash
    npm run ngrok
