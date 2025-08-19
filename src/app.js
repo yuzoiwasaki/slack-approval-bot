@@ -23,6 +23,12 @@ const APPROVAL_CHANNELS = process.env.APPROVAL_CHANNELS ?
   process.env.APPROVAL_CHANNELS.split(',') : 
   ['system_development_request'];
 
+// メンションを除去する関数
+function removeMentions(text) {
+  // Slackのメンション形式（<@U12345678>、<@U12345678|username>）を除去
+  return text.replace(/<@[^>]+>/g, '').trim();
+}
+
 // reaction_added イベントの検知
 app.event('reaction_added', async ({ event, client, logger }) => {
   const { reaction, user, item } = event;
@@ -60,12 +66,15 @@ app.event('reaction_added', async ({ event, client, logger }) => {
         return;
       }
 
+      // メンションを除去した申請内容を取得
+      const cleanContent = removeMentions(message.text);
+      
       // 承認ログを投稿
       const approvalLog = await client.chat.postMessage({
         channel: LOG_CHANNEL_ID,
         text: `✅ *承認ログ*\n` +
               `> 申請者: <@${message.user}>\n` +
-              `> 申請内容: ${message.text}\n` +
+              `> 申請内容: ${cleanContent}\n` +
               `> 承認者: <@${user}>\n` +
               `> 承認日時: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
         unfurl_links: false,

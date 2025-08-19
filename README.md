@@ -41,7 +41,7 @@ cp env.example .env
 - `APPROVAL_CHANNELS`: 承認ワークフローを適用するチャンネル（カンマ区切り、デフォルト: system_development_request）
 - `PORT`: サーバーポート（デフォルト: 3000）
 
-**注意**: `APPROVER_IDS`と`LOG_CHANNEL_ID`は必須設定です。設定されていない場合、ボットは起動しません。
+**注意**: `APPROVER_IDS`と`LOG_CHANNEL_ID`は必須設定です。設定されていない場合、Botは起動しません。
 
 #### チャンネルIDの取得方法
 
