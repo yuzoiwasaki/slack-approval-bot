@@ -71,6 +71,42 @@ npm run dev
 2. 承認者は該当メッセージに承認スタンプ（✅）を押す
 3. ボットが自動的に承認ログチャンネルに承認ログを投稿
 
+## ローカルテスト
+
+### 前提条件
+
+- Slack Appの設定が完了していること
+- 必要な環境変数が`.env`ファイルに設定されていること
+
+### テスト手順
+
+#### 方法1: 自動スクリプト（推奨）
+
+```bash
+npm run test:local
+```
+
+#### 方法2: 手動実行
+
+1. **ターミナル1**: ngrokを起動
+   ```bash
+   npm run ngrok
+   # または
+   ngrok http 3000
+   ```
+
+2. **ターミナル2**: ボットを起動
+   ```bash
+   npm start
+   ```
+
+3. **Slack App設定**: Event SubscriptionsでngrokのURLを設定
+   ```
+   https://abc123.ngrok.io/slack/events
+   ```
+
+4. **テスト実行**: Slackで承認ワークフローをテスト
+
 ## 設定例
 
 ### 承認スタンプの変更
