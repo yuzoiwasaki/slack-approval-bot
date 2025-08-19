@@ -64,10 +64,10 @@ app.event('reaction_added', async ({ event, client, logger }) => {
       const approvalLog = await client.chat.postMessage({
         channel: LOG_CHANNEL_ID,
         text: `✅ *承認ログ*\n` +
-              `> 投稿内容: ${message.text}\n` +
-              `> 投稿者: <@${message.user}>\n` +
+              `> 申請者: <@${message.user}>\n` +
+              `> 申請内容: ${message.text}\n` +
               `> 承認者: <@${user}>\n` +
-              `> 承認時刻: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
+              `> 承認日時: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
         unfurl_links: false,
         unfurl_media: false
       });
