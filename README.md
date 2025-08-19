@@ -41,6 +41,7 @@ cp env.example .env
 - `APPROVER_IDS`: 承認者のSlack ID（カンマ区切り）
 - `LOG_CHANNEL_ID`: 承認ログを投稿するチャンネルのID
 - `APPROVAL_STAMP`: 承認用スタンプ名（デフォルト: white_check_mark）
+- `APPROVAL_CHANNELS`: 承認ワークフローを適用するチャンネル（カンマ区切り、デフォルト: system_development_request）
 - `PORT`: サーバーポート（デフォルト: 3000）
 
 ### 3. Slack App の設定
@@ -91,6 +92,18 @@ APPROVAL_STAMP=eyes
 ```bash
 # 例：3名の承認者を設定
 APPROVER_IDS=U12345678,U87654321,U11111111
+```
+
+### 承認対象チャンネルの設定
+
+`.env` ファイルで `APPROVAL_CHANNELS` を編集することで、承認ワークフローを適用するチャンネルを管理できます。
+
+```bash
+# 例：単一チャンネルのみ
+APPROVAL_CHANNELS=system_development_request
+
+# 例：複数チャンネルを指定
+APPROVAL_CHANNELS=system_development_request,project_approval,expense_approval
 ```
 
 ## トラブルシューティング

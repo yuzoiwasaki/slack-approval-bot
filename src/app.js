@@ -18,11 +18,22 @@ const APPROVAL_STAMP = process.env.APPROVAL_STAMP || 'white_check_mark';
 // 承認ログ投稿先チャンネル（環境変数から取得）
 const LOG_CHANNEL_ID = process.env.LOG_CHANNEL_ID || 'CLOGCHANNEL';
 
+// 承認対象チャンネル（環境変数から取得、デフォルトはsystem_development_request）
+const APPROVAL_CHANNELS = process.env.APPROVAL_CHANNELS ? 
+  process.env.APPROVAL_CHANNELS.split(',') : 
+  ['system_development_request'];
+
 // reaction_added イベントの検知
 app.event('reaction_added', async ({ event, client, logger }) => {
   const { reaction, user, item } = event;
 
   try {
+    // 特定チャンネルでのみ動作するように制限
+    if (!APPROVAL_CHANNELS.includes(item.channel)) {
+      logger.info(`対象外チャンネル(${item.channel})のため、処理をスキップします。`);
+      return;
+    }
+
     // 承認用スタンプかチェック
     if (reaction === APPROVAL_STAMP) {
       logger.info(`承認スタンプ(${reaction})が押されました。ユーザー: ${user}`);
@@ -85,6 +96,7 @@ app.error((error) => {
     console.log(`📝 承認スタンプ: ${APPROVAL_STAMP}`);
     console.log(`👥 承認者数: ${APPROVER_IDS.length}名`);
     console.log(`📋 ログチャンネル: ${LOG_CHANNEL_ID}`);
+    console.log(`🎯 承認対象チャンネル: ${APPROVAL_CHANNELS.join(', ')}`);
     console.log(`🌐 ポート: ${process.env.PORT || 3000}`);
   } catch (error) {
     console.error('起動エラー:', error);
