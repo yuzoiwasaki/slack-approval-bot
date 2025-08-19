@@ -58,11 +58,7 @@ cp env.example .env
 ### 4. 起動
 
 ```bash
-# 本番環境
 npm start
-
-# 開発環境（ファイル変更時に自動再起動）
-npm run dev
 ```
 
 ## 使用方法
@@ -87,7 +83,7 @@ npm run dev
    ngrok http 3000
    ```
 
-2. **ターミナル2**: ボットを起動
+2. **ターミナル2**: Botを起動
    ```bash
    npm start
    ```
