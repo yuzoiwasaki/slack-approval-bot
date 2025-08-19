@@ -10,13 +10,13 @@ const app = new App({
 // 承認を許可するユーザーのSlack ID（環境変数から取得）
 const APPROVER_IDS = process.env.APPROVER_IDS ? 
   process.env.APPROVER_IDS.split(',') : 
-  ['U12345678', 'U87654321']; // デフォルト値
+  [];
 
 // 承認用スタンプ名（環境変数から取得）
 const APPROVAL_STAMP = process.env.APPROVAL_STAMP || 'white_check_mark';
 
 // 承認ログ投稿先チャンネル（環境変数から取得）
-const LOG_CHANNEL_ID = process.env.LOG_CHANNEL_ID || 'CLOGCHANNEL';
+const LOG_CHANNEL_ID = process.env.LOG_CHANNEL_ID || '';
 
 // 承認対象チャンネル（環境変数から取得、デフォルトはsystem_development_request）
 const APPROVAL_CHANNELS = process.env.APPROVAL_CHANNELS ? 
@@ -87,6 +87,17 @@ app.event('reaction_added', async ({ event, client, logger }) => {
 app.error((error) => {
   console.error('Slack App エラー:', error);
 });
+
+// 起動前の環境変数チェック
+if (APPROVER_IDS.length === 0) {
+  console.error('❌ エラー: APPROVER_IDSが設定されていません。.envファイルで承認者を設定してください。');
+  process.exit(1);
+}
+
+if (!LOG_CHANNEL_ID) {
+  console.error('❌ エラー: LOG_CHANNEL_IDが設定されていません。.envファイルでログチャンネルを設定してください。');
+  process.exit(1);
+}
 
 // 起動
 (async () => {

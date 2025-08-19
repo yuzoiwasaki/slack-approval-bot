@@ -39,10 +39,21 @@ cp env.example .env
 - `SLACK_BOT_TOKEN`: Slack Bot User OAuth Token (xoxb-...)
 - `SLACK_SIGNING_SECRET`: Slack App の署名シークレット
 - `APPROVER_IDS`: 承認者のSlack ID（カンマ区切り）
-- `LOG_CHANNEL_ID`: 承認ログを投稿するチャンネルのID
+- `LOG_CHANNEL_ID`: 承認ログを投稿するチャンネルのID（例: C1234567890）
 - `APPROVAL_STAMP`: 承認用スタンプ名（デフォルト: white_check_mark）
 - `APPROVAL_CHANNELS`: 承認ワークフローを適用するチャンネル（カンマ区切り、デフォルト: system_development_request）
 - `PORT`: サーバーポート（デフォルト: 3000）
+
+**注意**: `APPROVER_IDS`と`LOG_CHANNEL_ID`は必須設定です。設定されていない場合、ボットは起動しません。
+
+#### チャンネルIDの取得方法
+
+1. **Slackでチャンネルを開く**
+2. **チャンネル名をクリック** → **「チャンネルの詳細」**
+3. **「その他」** → **「チャンネルIDをコピー**」
+4. **`C`で始まる文字列**（例: `C1234567890`）がチャンネルIDです
+
+**注意**: チャンネル名ではなく、チャンネルIDを使用してください。
 
 ### 3. Slack App の設定
 
