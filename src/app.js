@@ -16,7 +16,7 @@ const LOG_CHANNEL_ID = process.env.LOG_CHANNEL_ID || '';
 
 const APPROVAL_CHANNELS = process.env.APPROVAL_CHANNELS ? 
   process.env.APPROVAL_CHANNELS.split(',') : 
-  ['system_development_request'];
+  [];
 
 function removeMentions(text) {
   return text.replace(/<@[^>]+>/g, '').trim();
