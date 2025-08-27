@@ -6,14 +6,28 @@
 
 1. 申請者は申請用チャンネルに承認を求める内容を投稿します
 2. 承認者は該当メッセージに承認スタンプを押します
-3. Botが自動的に承認ログチャンネルに承認ログを投稿します
-
-## 承認ログの内容
-
+3. Botが自動的に承認ログチャンネルに以下の内容で承認ログを投稿します
 - 申請者
 - 申請内容
 - 承認者
 - 承認日時
+
+## 事前準備
+
+### Slack App の設定
+
+1. [Slack API](https://api.slack.com/apps) で新しいアプリを作成
+2. 以下の権限を設定：
+- **Bot Token Scopes**:
+  - `channels:history` - チャンネルのメッセージ履歴を読み取り
+  - `chat:write` - メッセージを送信
+  - `reactions:read` - リアクションを読み取り
+3. アプリをワークスペースにインストール
+4. Bot User OAuth Token と Signing Secret を取得
+
+### ngork の設定
+
+ローカル環境でのテストに必要なため、必要に応じてアカウントを作成してください。
 
 ## セットアップ
 
@@ -31,32 +45,13 @@ npm install
 cp env.example .env
 ```
 
-### 3. Slack App の設定
-
-1. [Slack API](https://api.slack.com/apps) で新しいアプリを作成
-2. 以下の権限を設定：
-   - **Bot Token Scopes**:
-     - `channels:history` - チャンネルのメッセージ履歴を読み取り
-     - `chat:write` - メッセージを送信
-     - `reactions:read` - リアクションを読み取り
-3. アプリをワークスペースにインストール
-4. Bot User OAuth Token と Signing Secret を取得
-
-### 4. 起動
+### 3. 起動
 
 ```bash
 npm start
 ```
 
 ## ローカルテスト
-
-### 前提条件
-
-- Slack Appの設定が完了していること
-- 必要な環境変数が`.env`ファイルに設定されていること
-- ngorkの設定が完了していること
-
-### テスト手順
 
 1. **ターミナル1**: ngrokを起動
    ```bash
